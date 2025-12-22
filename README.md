@@ -1,8 +1,4 @@
-![](docs/logo.png)
-
-[![Github-sponsors](https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/insality) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/insality) [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/insality)
-
-[![GitHub release (latest by date)](https://img.shields.io/github/v/tag/insality/defold-printer?style=for-the-badge&label=Release)](https://github.com/Insality/defold-printer/tags)
+https://github.com/Pyrotaly/pyro_defold-printer/archive/refs/tags/v1.0.0.zip
 
 # Printer
 A symbol-by-symbol text writer for Defold Engine. Developed for rich game dialogs.
@@ -222,22 +218,6 @@ Insality
 <a href="https://github.com/Insality/defold-printer/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=insality/defold-printer"/>
 </a>
-
-
-## Changelog
-
-<details>
-
-### **1.1.0**
-- Improved functionality of creating new lines. Updated documentation, converted passive voice to active voice where possible. (@rocamocha)
-
-### **1.2.0**
-- Migrated to Defold 1.7.0
-
-### **1.2.1**
-- Fixed bug with node shaking (@farazk86)
-
-</details>
 
 # License
 My code is under MIT license
