@@ -4,6 +4,7 @@ local styles = require("example.styles")
 
 local texts = {
 	"Hello! This text is being handled by a printer!",
+	"HelSDSF",
 	"You can print text with {hard}some style{/}",
 	"Or just {hard}mix{/} the {slow_appear}different{/} styles",
 	"Also, there are some advanced options:",

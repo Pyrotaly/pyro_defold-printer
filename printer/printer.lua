@@ -468,6 +468,30 @@ function M.instant_appear(self)
 	end
 end
 
+local function get_single_row_size(self)
+	if self.current_row ~= 1 then
+		return nil
+	end
+
+	local width = 0
+	local height = 0
+
+	for _, word in ipairs(self.current_words) do
+		local word_width = get_word_size(word)
+		width = width + word_width
+
+		if #word > 0 then
+			local size = get_letter_size(word[1])
+			height = math.max(height, size.height)
+		end
+	end
+
+	return {
+		width = width,
+		height = height
+	}
+end
+
 
 function M.print(self, str, source)
 	-- Only update node_parent_pos if we're not currently shaking
@@ -495,6 +519,16 @@ function M.print(self, str, source)
 		precreate_text(self)
 		update_text_pos(self)
 		appear_text(self)
+
+		-- For dimensions
+		print(self.new_row)
+		print(self.current_row)
+		if self.current_row == 1 then
+			local size = get_single_row_size(self)
+			pprint(size)
+		else
+			
+		end
 		return true
 	end
 end
