@@ -22,6 +22,7 @@ return {
 		color = "#f22222",
 		speed = 0.1,
 		appear = 0,
+		sound = "test",
 		shake_on_write = 4
 	},
 

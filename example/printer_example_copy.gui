@@ -1,4 +1,4 @@
-script: "/example/printer_example.gui_script"
+script: "/example/printer_example_copy.gui_script"
 fonts {
   name: "game"
   font: "/example/game.font"
@@ -9,7 +9,7 @@ textures {
 }
 nodes {
   position {
-    x: 450.0
+    x: 175.0
     y: 300.0
   }
   type: TYPE_TEMPLATE
@@ -22,12 +22,18 @@ nodes {
     x: 200.0
     y: 200.0
   }
+  color {
+    x: 0.702
+    y: 0.702
+    z: 0.302
+  }
   type: TYPE_BOX
   id: "example/text_parent"
   parent: "example"
   overridden_fields: 1
   overridden_fields: 3
   overridden_fields: 4
+  overridden_fields: 5
   overridden_fields: 30
   template_node_child: true
 }
