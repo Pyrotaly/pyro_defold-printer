@@ -1,3 +1,7 @@
+-- FONT HEIGHT should be constant if mixing styles.
+-- if dialogue will entirely be one style then that can also have its own font_height
+-- If i want to do some glitchy effects then I could try messing with it
+-- maybe have a validator
 return {
 	default = {
 		font_height = 42,
@@ -14,6 +18,7 @@ return {
 	},
 
 	hard = {
+		scale = 2,
 		color = "#f22222",
 		speed = 0.1,
 		appear = 0,

@@ -5,7 +5,7 @@ local styles = require("example.styles")
 local texts = {
 	"Hello! This text is being handled by a printer!",
 	"HelSDSF",
-	"You can print text with {hard}some style{/}",
+	"You can print {hard}text with some{/} style and a lot of other cool things",
 	"Or just {hard}mix{/} the {slow_appear}different{/} styles",
 	"Also, there are some advanced options:",
 	{"You can write text with pointed {define_style}source{/}, to change default text", "defold"},
@@ -22,6 +22,7 @@ local function next_print(self)
 		text, source = text[1], text[2]
 	end
 	self.printer:print(text, source)
+	self.printer:get_current_dialogue_metrics()
 end
 
 

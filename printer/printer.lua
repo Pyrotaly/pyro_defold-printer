@@ -429,6 +429,43 @@ local function appear_text(self)
 end
 
 
+local function get_single_row_size(self)
+	if self.current_row ~= 1 then
+		return nil
+	end
+
+	local width = 0
+	local height = 0
+
+	for _, word in ipairs(self.current_words) do
+		local word_width = get_word_size(word)
+		width = width + word_width
+
+		if #word > 0 then
+			local size = get_letter_size(word[1])
+			height = math.max(height, size.height)
+		end
+	end
+
+	return {
+		width = width,
+		height = height
+	}
+end
+
+
+local function calculate_current_dialogue_metrics(self)
+	self.dialogue_height = self.current_words[1][1].style.font_height * self.current_row
+
+	assert(self.current_row > 0, "Number of rows is not a non-zero positive")
+	if self.current_row == 1 then
+		self.dialogue_width = get_single_row_size(self).width
+	else
+		self.dialogue_width = self.parent_size.x
+	end
+end
+
+
 local function init(self, node)
 	self.prefab = gui.get_node(node .. "/prefab")
 	self.prefab_icon = gui.get_node(node .. "/prefab_icon")
@@ -439,6 +476,9 @@ local function init(self, node)
 
 	self.node_parent_pos = gui.get_position(self.node_parent)
 	self.parent_size = gui.get_size(self.node_parent)
+
+	self.dialogue_width = 0
+	self.dialogue_height = 0
 
 	gui.set_enabled(self.prefab, false)
 	gui.set_enabled(self.prefab_icon, false)
@@ -466,30 +506,6 @@ function M.instant_appear(self)
 			appear_node(self, self.current_letters[i], true)
 		end
 	end
-end
-
-local function get_single_row_size(self)
-	if self.current_row ~= 1 then
-		return nil
-	end
-
-	local width = 0
-	local height = 0
-
-	for _, word in ipairs(self.current_words) do
-		local word_width = get_word_size(word)
-		width = width + word_width
-
-		if #word > 0 then
-			local size = get_letter_size(word[1])
-			height = math.max(height, size.height)
-		end
-	end
-
-	return {
-		width = width,
-		height = height
-	}
 end
 
 
@@ -520,15 +536,6 @@ function M.print(self, str, source)
 		update_text_pos(self)
 		appear_text(self)
 
-		-- For dimensions
-		print(self.new_row)
-		print(self.current_row)
-		if self.current_row == 1 then
-			local size = get_single_row_size(self)
-			pprint(size)
-		else
-			
-		end
 		return true
 	end
 end
@@ -596,5 +603,9 @@ function M.add_word_style(word, style)
 	word_styles[word] = style
 end
 
+function M.get_current_dialogue_metrics(self)
+	calculate_current_dialogue_metrics(self)
+	return self.dialogue_width, self.dialogue_height
+end
 
 return M
