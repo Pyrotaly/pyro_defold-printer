@@ -84,5 +84,43 @@ nodes {
   inherit_alpha: true
   shadow_alpha: 0.0
 }
+nodes {
+  position {
+    x: 219.0
+    y: 291.0
+  }
+  type: TYPE_TEMPLATE
+  id: "example_2"
+  inherit_alpha: true
+  template: "/printer/printer.gui"
+}
+nodes {
+  size {
+    x: 200.0
+    y: 200.0
+  }
+  color {
+    z: 0.4
+  }
+  type: TYPE_BOX
+  id: "example_2/text_parent"
+  parent: "example_2"
+  overridden_fields: 4
+  overridden_fields: 5
+  overridden_fields: 30
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "example_2/prefab"
+  parent: "example_2"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "example_2/prefab_icon"
+  parent: "example_2"
+  template_node_child: true
+}
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT
