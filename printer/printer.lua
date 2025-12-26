@@ -416,6 +416,7 @@ local function print_next(self)
 	else
 		self.is_print = false
 		msg.post('.', HASH_PRINT_DONE)
+		
 	end
 end
 
@@ -536,6 +537,8 @@ function M.print(self, str, source)
 		update_text_pos(self)
 		appear_text(self)
 
+		print(M.get_current_dialogue_metrics(self))
+		
 		return true
 	end
 end

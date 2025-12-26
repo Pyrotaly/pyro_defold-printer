@@ -4,7 +4,7 @@ embedded_instances {
   id: "gui"
   data: "components {\n"
   "  id: \"printer\"\n"
-  "  component: \"/example/printer_example.gui\"\n"
+  "  component: \"/example/printer_example_copy.gui\"\n"
   "}\n"
   ""
 }
