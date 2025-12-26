@@ -9,7 +9,7 @@ textures {
 }
 nodes {
   position {
-    x: 450.0
+    x: 837.0
     y: 300.0
   }
   type: TYPE_TEMPLATE
@@ -95,18 +95,26 @@ nodes {
   template: "/printer/printer.gui"
 }
 nodes {
+  position {
+    y: 128.0
+  }
   size {
     x: 200.0
     y: 200.0
   }
   color {
-    z: 0.4
+    x: 0.2
+    y: 0.2
+    z: 0.2
   }
   type: TYPE_BOX
   id: "example_2/text_parent"
+  pivot: PIVOT_N
   parent: "example_2"
+  overridden_fields: 1
   overridden_fields: 4
   overridden_fields: 5
+  overridden_fields: 14
   overridden_fields: 30
   template_node_child: true
 }
@@ -118,8 +126,10 @@ nodes {
 }
 nodes {
   type: TYPE_BOX
+  texture: "printer_atlas/char"
   id: "example_2/prefab_icon"
   parent: "example_2"
+  overridden_fields: 9
   template_node_child: true
 }
 material: "/builtins/materials/gui.material"

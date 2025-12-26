@@ -214,7 +214,7 @@ local function update_letter_pos(self, node_data)
 		-- first symbol
 		local row_index = (self.current_row-1)
 		pos.x = -self.parent_size.x * 0.5
-		pos.y = self.parent_size.y * 0.5 - (row_index * style.font_height) - style.font_height * 0.5
+		pos.y = (self.parent_size.y * 0.5 - (row_index * style.font_height) - style.font_height * 0.5) - 100
 	else
 		local prev_pos = gui.get_position(self.prev_node.node)
 		local prev_size = get_letter_size(self.prev_node)
@@ -350,7 +350,9 @@ end
 local function appear_node(self, node_data, is_instant)
 	local style = node_data.style
 	local node = node_data.node
-
+	print("ahah")
+	pprint(node)
+	
 	if node_data.text ~= " " and not is_instant and style.sound then
 		M.play_sound(style.sound)
 	end
@@ -476,7 +478,8 @@ local function init(self, node)
 	self.write_timer = 0
 
 	self.node_parent_pos = gui.get_position(self.node_parent)
-	self.parent_size = gui.get_size(self.node_parent)
+	self.base_parent_size = gui.get_size(self.node_parent)
+	self.parent_size = self.base_parent_size
 
 	self.dialogue_width = 0
 	self.dialogue_height = 0
@@ -516,7 +519,7 @@ function M.print(self, str, source)
         self.node_parent_pos = gui.get_position(self.node_parent)
     end
 
-	self.parent_size = gui.get_size(self.node_parent)
+	-- self.parent_size = gui.get_size(self.node_parent)
 
 	if self.is_print then
 		self:instant_appear()
@@ -537,8 +540,12 @@ function M.print(self, str, source)
 		update_text_pos(self)
 		appear_text(self)
 
-		print(M.get_current_dialogue_metrics(self))
+		local t_width, t_height = M.get_current_dialogue_metrics(self) 
+		gui.set_size(self.node_parent, vmath.vector3(t_width, t_height, 0))
 		
+		-- local pos = gui.get_position(self.node_parent)
+		-- pos.y = pos.y + 50
+		-- gui.set_position(self.node_parent, pos)
 		return true
 	end
 end
@@ -563,7 +570,7 @@ function M.update(self, dt)
         self.node_parent_pos = gui.get_position(self.node_parent)
     end
 
-	self.parent_size = gui.get_size(self.node_parent)
+	-- self.parent_size = gui.get_size(self.node_parent)
 
 	if self.is_print then
 		self.write_timer = self.write_timer - dt

@@ -25,12 +25,16 @@ local texts = {
 
 
 local function next_print(self)
+	
 	local text = texts[self.index]
 	local source = nil
 	if type(text) == "table" then
 		text, source = text[1], text[2]
 	end
 	self.printer:print(text, source)
+
+	print("AAAAAA")
+	print(gui.get_position(gui.get_node("example/prefab")))
 	-- self.printer_2:print(text, source)
 
 	-- local text_2 = texts_2[self.index]

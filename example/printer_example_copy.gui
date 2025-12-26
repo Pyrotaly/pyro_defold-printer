@@ -8,16 +8,16 @@ textures {
   texture: "/example/printer_atlas.atlas"
 }
 nodes {
-  position {
-    x: 314.0
-    y: 300.0
-  }
   type: TYPE_TEMPLATE
   id: "example"
   inherit_alpha: true
   template: "/printer/printer.gui"
 }
 nodes {
+  position {
+    x: 285.0
+    y: 186.0
+  }
   size {
     x: 200.0
     y: 200.0
@@ -29,11 +29,13 @@ nodes {
   }
   type: TYPE_BOX
   id: "example/text_parent"
+  pivot: PIVOT_S
   parent: "example"
   overridden_fields: 1
   overridden_fields: 3
   overridden_fields: 4
   overridden_fields: 5
+  overridden_fields: 14
   overridden_fields: 30
   template_node_child: true
 }
