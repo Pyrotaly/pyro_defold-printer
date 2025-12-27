@@ -1,6 +1,24 @@
 local printer = require("printer.printer")
 local styles = require("example.styles")
 
+local size_index = 1
+local sizes = {
+	{ w = 460, h = 97  }, -- 400 x 84
+	{ w = 71,  h = 48  }, -- 62 x 42
+	{ w = 460, h = 97  },
+	{ w = 352, h = 48  }, -- 306 x 42
+	{ w = 386, h = 48  }, -- 336 x 42
+	{ w = 460, h = 97  },
+	{ w = 460, h = 97  },
+	{ w = 460, h = 97  },
+	{ w = 460, h = 193 }, -- 400 x 168
+}
+
+local function set_box()
+	gui.set_size(gui.get_node("example/text_parent"), vmath.vector3(sizes[size_index].w, sizes[size_index].h, 0))
+	print(gui.get_size(gui.get_node("example/text_parent")))
+	size_index = size_index + 1
+end
 
 local texts = {
 	"Hello! This text is being handled by a printer!",
@@ -16,13 +34,14 @@ local texts = {
 
 
 local function next_print(self)
+	set_box()
 	local text = texts[self.index]
 	local source = nil
 	if type(text) == "table" then
 		text, source = text[1], text[2]
 	end
 	self.printer:print(text, source)
-	self.printer:get_current_dialogue_metrics()
+	print(self.printer:get_current_dialogue_metrics())	
 end
 
 
@@ -39,6 +58,7 @@ function init(self)
 
 	self.printer = printer.new(self, "example")
 	self.index = 1
+
 
 	timer.delay(0.1, false, function()
 		next_print(self)

@@ -213,7 +213,7 @@ local function update_letter_pos(self, node_data)
 	if not self.prev_node or is_new_row then
 		-- first symbol
 		local row_index = (self.current_row-1)
-		pos.x = -self.parent_size.x * 0.5
+		pos.x = -self.parent_size.x * 0.475
 		pos.y = self.parent_size.y * 0.5 - (row_index * style.font_height) - style.font_height * 0.5
 	else
 		local prev_pos = gui.get_position(self.prev_node.node)
@@ -516,7 +516,8 @@ function M.print(self, str, source)
     end
 
 	self.parent_size = gui.get_size(self.node_parent)
-
+	print(self.parent_size)
+	
 	if self.is_print then
 		self:instant_appear()
 		return false
