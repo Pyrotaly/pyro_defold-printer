@@ -1,25 +1,6 @@
 local printer = require("printer.printer")
 local styles = require("example.styles")
 
-local size_index = 1
-local sizes = {
-	{ w = 460, h = 97  }, -- 400 x 84
-	{ w = 71,  h = 48  }, -- 62 x 42
-	{ w = 460, h = 97  },
-	{ w = 352, h = 48  }, -- 306 x 42
-	{ w = 386, h = 48  }, -- 336 x 42
-	{ w = 460, h = 97  },
-	{ w = 460, h = 97  },
-	{ w = 460, h = 97  },
-	{ w = 460, h = 193 }, -- 400 x 168
-}
-
-local function set_box()
-	gui.set_size(gui.get_node("example/text_parent"), vmath.vector3(sizes[size_index].w, sizes[size_index].h, 0))
-	print(gui.get_size(gui.get_node("example/text_parent")))
-	size_index = size_index + 1
-end
-
 local texts = {
 	"Hello! This text is being handled by a printer!",
 	"HelSDSF",
@@ -34,14 +15,14 @@ local texts = {
 
 
 local function next_print(self)
-	set_box()
 	local text = texts[self.index]
 	local source = nil
 	if type(text) == "table" then
 		text, source = text[1], text[2]
 	end
+	local w, h = self.background_printer:sized_txt_box_print(text, source)
+	gui.set_size(gui.get_node("example/text_parent"), vmath.vector3(w, h, 0))
 	self.printer:print(text, source)
-	print(self.printer:get_current_dialogue_metrics())	
 end
 
 
@@ -55,6 +36,9 @@ function init(self)
 	printer.play_sound = function(name)
 		sound.play("sounds#" .. name)
 	end
+
+	-- this printer just gives us what size to set text box
+	self.background_printer = printer.new(self, "base")
 
 	self.printer = printer.new(self, "example")
 	self.index = 1
@@ -73,6 +57,10 @@ end
 
 function update(self, dt)
 	self.printer:update(dt)
+end
+
+function on_message(self, message_id, message, sender)
+
 end
 
 
