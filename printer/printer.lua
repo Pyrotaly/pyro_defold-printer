@@ -222,7 +222,6 @@ local function update_letter_pos(self, node_data)
 		pos.y = prev_pos.y
 	end
 
-	pprint(node_data)
 	gui.set_position(node_data.node, pos)
 	self.prev_node = node_data
 end
@@ -460,7 +459,7 @@ local function calculate_current_dialogue_metrics(self)
 
 	assert(self.current_row > 0, "Number of rows is not a non-zero positive")
 	if self.current_row == 1 then
-		self.dialogue_width = get_single_row_size(self).width
+		self.dialogue_width = get_single_row_size(self).width * 1.05
 	else
 		self.dialogue_width = self.parent_size.x
 	end
@@ -510,22 +509,53 @@ function M.instant_appear(self)
 end
 
 function M.sized_txt_box_print(self, str, source)
-	self.current_row = 1
-	self.new_row = false
-	self.stylename = source_styles[source] or "default"
-	self.default_style = self.stylename
-	self.last_style = styles[self.default_style]
-	self.prev_node = false
-	clear_prev_text(self)
-	self.string = str
+-- 	self.current_row = 1
+-- 	self.new_row = false
+-- 	self.stylename = source_styles[source] or "default"
+-- 	self.default_style = self.stylename
+-- 	self.last_style = styles[self.default_style]
+-- 	self.prev_node = false
+-- 	clear_prev_text(self)
+-- 	self.string = str
+-- 
+-- 	self.string = modify_text(self.string)
+-- 	precreate_text(self)
+-- 	update_text_pos(self)
+-- 	appear_text(self)
 
-	self.string = modify_text(self.string)
-	precreate_text(self)
-	update_text_pos(self)
+	-- Only update node_parent_pos if we're not currently shaking
+	if self.shake_time <= 0 then
+		self.node_parent_pos = gui.get_position(self.node_parent)
+	end
 
-	local w, h = M.get_current_dialogue_metrics(self)
-	print(w, " ", h)
-	return w*1.15, h*1.1
+	self.parent_size = gui.get_size(self.node_parent)
+
+	if self.is_print then
+		local w, h = M.get_current_dialogue_metrics(self)
+		print(w, " ", h)
+		return w, h
+	else
+		self.current_row = 1
+		self.new_row = false
+		self.stylename = source_styles[source] or "default"
+		self.default_style = self.stylename
+		self.last_style = styles[self.default_style]
+		self.prev_node = false
+		clear_prev_text(self)
+		self.string = str
+
+		-- precreate -> posing -> start showing
+		self.string = modify_text(self.string)
+		precreate_text(self)
+		update_text_pos(self)
+		appear_text(self)
+
+		local w, h = M.get_current_dialogue_metrics(self)
+		print(w, " ", h)
+		return w, h
+	end
+
+
 end
 
 function M.print(self, str, source)
