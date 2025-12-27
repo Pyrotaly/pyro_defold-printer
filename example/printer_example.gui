@@ -10,61 +10,6 @@ textures {
 nodes {
   position {
     x: 300.0
-    y: 300.0
-  }
-  type: TYPE_TEMPLATE
-  id: "example"
-  inherit_alpha: true
-  template: "/printer/printer.gui"
-}
-nodes {
-  position {
-    x: 16.0
-    y: 78.0
-  }
-  size {
-    x: 500.0
-    y: 200.0
-  }
-  type: TYPE_BOX
-  id: "example/text_parent"
-  parent: "example"
-  overridden_fields: 1
-  overridden_fields: 3
-  overridden_fields: 4
-  overridden_fields: 30
-  template_node_child: true
-}
-nodes {
-  position {
-    x: -147.0
-    y: 45.0
-  }
-  size {
-    x: 365.0
-    y: 42.0
-  }
-  type: TYPE_TEXT
-  font: "system_font"
-  id: "example/prefab"
-  parent: "example"
-  overridden_fields: 1
-  overridden_fields: 4
-  overridden_fields: 10
-  overridden_fields: 16
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  texture: "printer_atlas/char"
-  id: "example/prefab_icon"
-  parent: "example"
-  overridden_fields: 9
-  template_node_child: true
-}
-nodes {
-  position {
-    x: 300.0
     y: 60.0
   }
   size {
@@ -90,7 +35,7 @@ nodes {
 }
 nodes {
   position {
-    x: 300.0
+    x: -399.0
     y: 85.0
   }
   type: TYPE_TEMPLATE
@@ -146,6 +91,75 @@ nodes {
   texture: "printer_atlas/char"
   id: "base/prefab_icon"
   parent: "base"
+  overridden_fields: 9
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 143.0
+    y: 317.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "box"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: -70.0
+  }
+  type: TYPE_TEMPLATE
+  id: "example"
+  parent: "box"
+  inherit_alpha: true
+  template: "/printer/printer.gui"
+}
+nodes {
+  position {
+    x: 16.0
+    y: 78.0
+  }
+  size {
+    x: 500.0
+    y: 200.0
+  }
+  type: TYPE_BOX
+  id: "example/text_parent"
+  parent: "example"
+  overridden_fields: 1
+  overridden_fields: 3
+  overridden_fields: 4
+  overridden_fields: 30
+  template_node_child: true
+}
+nodes {
+  position {
+    x: -147.0
+    y: 45.0
+  }
+  size {
+    x: 365.0
+    y: 42.0
+  }
+  type: TYPE_TEXT
+  font: "system_font"
+  id: "example/prefab"
+  parent: "example"
+  overridden_fields: 1
+  overridden_fields: 4
+  overridden_fields: 10
+  overridden_fields: 16
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  texture: "printer_atlas/char"
+  id: "example/prefab_icon"
+  parent: "example"
   overridden_fields: 9
   template_node_child: true
 }
