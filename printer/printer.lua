@@ -213,8 +213,8 @@ local function update_letter_pos(self, node_data)
 	if not self.prev_node or is_new_row then
 		-- first symbol
 		local row_index = (self.current_row-1)
-		pos.x = -self.parent_size.x * 0.475
-		pos.y = self.parent_size.y * 0.5 - (row_index * style.font_height) - style.font_height * 0.5
+		pos.x = -self.parent_size.x * 0.495
+		pos.y = self.parent_size.y * 0.485 - (row_index * style.font_height) - style.font_height * 0.5
 	else
 		local prev_pos = gui.get_position(self.prev_node.node)
 		local prev_size = get_letter_size(self.prev_node)
@@ -222,6 +222,7 @@ local function update_letter_pos(self, node_data)
 		pos.y = prev_pos.y
 	end
 
+	pprint(node_data)
 	gui.set_position(node_data.node, pos)
 	self.prev_node = node_data
 end
@@ -523,7 +524,8 @@ function M.sized_txt_box_print(self, str, source)
 	update_text_pos(self)
 
 	local w, h = M.get_current_dialogue_metrics(self)
-	return w*1.15, h*1.15
+	print(w, " ", h)
+	return w*1.15, h*1.1
 end
 
 function M.print(self, str, source)
