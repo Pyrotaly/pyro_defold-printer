@@ -1,5 +1,5 @@
 [project]
-title = defold-printer
+title = pyro-defold-printer
 version = 0.2.1
 
 [bootstrap]

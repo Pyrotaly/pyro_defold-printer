@@ -525,38 +525,6 @@ function M.sized_txt_box_print(self, str, source)
 	local w, h = M.get_current_dialogue_metrics(self)
 	print(w, " ", h)
 	return w, h
-
--- 	-- Only update node_parent_pos if we're not currently shaking
--- 	if self.shake_time <= 0 then
--- 		self.node_parent_pos = gui.get_position(self.node_parent)
--- 	end
--- 
--- 	self.parent_size = gui.get_size(self.node_parent)
--- 
--- 	if self.is_print then
--- 		local w, h = M.get_current_dialogue_metrics(self)
--- 		print(w, " ", h)
--- 		return w, h
--- 	else
--- 		self.current_row = 1
--- 		self.new_row = false
--- 		self.stylename = source_styles[source] or "default"
--- 		self.default_style = self.stylename
--- 		self.last_style = styles[self.default_style]
--- 		self.prev_node = false
--- 		clear_prev_text(self)
--- 		self.string = str
--- 
--- 		-- precreate -> posing -> start showing
--- 		self.string = modify_text(self.string)
--- 		precreate_text(self)
--- 		update_text_pos(self)
--- 		appear_text(self)
--- 
--- 		local w, h = M.get_current_dialogue_metrics(self)
--- 		print(w, " ", h)
--- 		return w, h
--- 	end
 end
 
 function M.print(self, str, source)
