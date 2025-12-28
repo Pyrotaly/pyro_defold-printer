@@ -508,6 +508,24 @@ function M.instant_appear(self)
 	end
 end
 
+function M.sized_txt_box_print(self, str, source)
+	self.current_row = 1
+	self.new_row = false
+	self.stylename = source_styles[source] or "default"
+	self.default_style = self.stylename
+	self.last_style = styles[self.default_style]
+	self.prev_node = false
+	clear_prev_text(self)
+	self.string = str
+
+	self.string = modify_text(self.string)
+	precreate_text(self)
+	update_text_pos(self)
+
+	local w, h = M.get_current_dialogue_metrics(self)
+	print(w, " ", h)
+	return w, h
+end
 
 function M.print(self, str, source)
 	-- Only update node_parent_pos if we're not currently shaking
