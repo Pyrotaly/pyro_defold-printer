@@ -523,7 +523,7 @@ function M.sized_txt_box_print(self, str, source)
 	update_text_pos(self)
 
 	local w, h = M.get_current_dialogue_metrics(self)
-	print(w, " ", h)
+
 	return w, h
 end
 
