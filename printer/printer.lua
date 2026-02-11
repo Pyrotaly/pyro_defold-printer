@@ -455,14 +455,20 @@ end
 
 
 local function calculate_current_dialogue_metrics(self)
-	self.dialogue_height = self.current_words[1][1].style.font_height * self.current_row
+	local text_height = self.current_words[1][1].style.font_height * self.current_row
+	local text_width
 
 	assert(self.current_row > 0, "Number of rows is not a non-zero positive")
+
 	if self.current_row == 1 then
-		self.dialogue_width = get_single_row_size(self).width
+		text_width = get_single_row_size(self).width
 	else
-		self.dialogue_width = self.parent_size.x
+		text_width = self.parent_size.x
 	end
+
+	-- include offsets in total box size
+	self.dialogue_width = text_width + math.abs(self.dialogue_x_offset)
+	self.dialogue_height = text_height + math.abs(self.dialogue_start_y_offset)
 end
 
 
