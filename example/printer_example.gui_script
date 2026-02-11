@@ -40,6 +40,8 @@ function init(self)
 	self.printer = printer.new(self, "example")
 	self.index = 1
 
+	self.printer:set_dialogue_offset(0, 0)
+	
 	timer.delay(0.1, false, function()
 		next_print(self)
 	end)

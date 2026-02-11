@@ -213,8 +213,8 @@ local function update_letter_pos(self, node_data)
 	if not self.prev_node or is_new_row then
 		-- first symbol
 		local row_index = (self.current_row-1)
-		pos.x = -self.parent_size.x * 0.5
-		pos.y = self.parent_size.y * 0.5 - (row_index * style.font_height) - style.font_height * 0.5
+		pos.x = -self.parent_size.x * 0.5 + self.dialogue_x_offset
+		pos.y = self.parent_size.y * 0.5 - self.dialogue_start_y_offset - (row_index * style.font_height) - style.font_height * 0.5
 	else
 		local prev_pos = gui.get_position(self.prev_node.node)
 		local prev_size = get_letter_size(self.prev_node)
@@ -480,6 +480,9 @@ local function init(self, node)
 	self.dialogue_width = 0
 	self.dialogue_height = 0
 
+	self.dialogue_x_offset = 0
+	self.dialogue_start_y_offset = 0
+
 	gui.set_enabled(self.prefab, false)
 	gui.set_enabled(self.prefab_icon, false)
 
@@ -624,6 +627,11 @@ end
 function M.get_current_dialogue_metrics(self)
 	calculate_current_dialogue_metrics(self)
 	return self.dialogue_width, self.dialogue_height
+end
+
+function M.set_dialogue_offset(self, x_offset, y_offset)
+	self.dialogue_x_offset = x_offset
+	self.dialogue_start_y_offset = y_offset
 end
 
 return M
