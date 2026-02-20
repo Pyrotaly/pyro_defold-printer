@@ -487,12 +487,6 @@ function M.sized_txt_box_print(self, str, source)
 	self.string = modify_text(self.string)
 	precreate_text(self)
 	update_text_pos(self)
-	appear_text(self)
-	-- local w, h = M.get_current_dialogue_metrics(self)
-
-	Print_line(self.parent_size.x)
-	Print_line(self.parent_size.y)
-	Print_line(self.current_row)
 
 	local current_style = styles[self.default_style] or styles.default
 	local font_height = current_style.font_height
@@ -505,7 +499,6 @@ function M.sized_txt_box_print(self, str, source)
 			required_width = required_width + get_word_size(self.current_words[i])
 		end
 		required_width = required_width + (self.dialogue_x_offset * 2)
-		Print_line("MATH: ".. required_width)
 	end
 
 	return required_width, required_height
