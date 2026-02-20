@@ -12,20 +12,20 @@
 	self.printer = printer.new(self, template_name)
 
 	in update:
-		self.printer:update(dt)
+	self.printer:update(dt)
 	if final
-		self.printer:final()
+	self.printer:final()
 
 	to write text:
-		self.printer:print("string {stylename}next string")
-		return true, if string will writing
-		return false, if prev. string is writing and instant complete them
+	self.printer:print("string {stylename}next string")
+	return true, if string will writing
+	return false, if prev. string is writing and instant complete them
 
 	to see if printer is print now:
-		self.printer.is_print
+	self.printer.is_print
 
 	to instant complete current print manual:
-		self.printer:instant_appear()
+	self.printer:instant_appear()
 
 	New styles you can add with printer.add_styles({styles})
 
@@ -61,8 +61,8 @@ local split = function(inputstr, sep)
 	local t = {}
 	local i = 1
 	for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-			t[i] = str
-			i = i + 1
+		t[i] = str
+		i = i + 1
 	end
 	return t
 end
@@ -429,49 +429,6 @@ local function appear_text(self)
 end
 
 
-local function get_single_row_size(self)
-	if self.current_row ~= 1 then
-		return nil
-	end
-
-	local width = 0
-	local height = 0
-
-	for _, word in ipairs(self.current_words) do
-		local word_width = get_word_size(word)
-		width = width + word_width
-
-		if #word > 0 then
-			local size = get_letter_size(word[1])
-			height = math.max(height, size.height)
-		end
-	end
-
-	return {
-		width = width,
-		height = height
-	}
-end
-
-
-local function calculate_current_dialogue_metrics(self)
-	local text_height = self.current_words[1][1].style.font_height * self.current_row
-	local text_width
-
-	assert(self.current_row > 0, "Number of rows is not a non-zero positive")
-
-	if self.current_row == 1 then
-		text_width = get_single_row_size(self).width
-	else
-		text_width = self.parent_size.x
-	end
-
-	-- include offsets in total box size
-	self.dialogue_width = text_width + math.abs(self.dialogue_x_offset)
-	self.dialogue_height = text_height + math.abs(self.dialogue_start_y_offset)
-end
-
-
 local function init(self, node)
 	self.prefab = gui.get_node(node .. "/prefab")
 	self.prefab_icon = gui.get_node(node .. "/prefab_icon")
@@ -530,17 +487,35 @@ function M.sized_txt_box_print(self, str, source)
 	self.string = modify_text(self.string)
 	precreate_text(self)
 	update_text_pos(self)
+	appear_text(self)
+	-- local w, h = M.get_current_dialogue_metrics(self)
 
-	local w, h = M.get_current_dialogue_metrics(self)
+	Print_line(self.parent_size.x)
+	Print_line(self.parent_size.y)
+	Print_line(self.current_row)
 
-	return w, h
+	local current_style = styles[self.default_style] or styles.default
+	local font_height = current_style.font_height
+	local required_height = self.current_row * font_height
+
+	local required_width = self.parent_size.x  -- default to full width
+	if self.current_row == 1 then
+		required_width = 0
+		for i = 1, #self.current_words do
+			required_width = required_width + get_word_size(self.current_words[i])
+		end
+		required_width = required_width + (self.dialogue_x_offset * 2)
+		Print_line("MATH: ".. required_width)
+	end
+
+	return required_width, required_height
 end
 
 function M.print(self, str, source)
 	-- Only update node_parent_pos if we're not currently shaking
-    if self.shake_time <= 0 then
-        self.node_parent_pos = gui.get_position(self.node_parent)
-    end
+	if self.shake_time <= 0 then
+		self.node_parent_pos = gui.get_position(self.node_parent)
+	end
 
 	self.parent_size = gui.get_size(self.node_parent)
 
@@ -562,7 +537,6 @@ function M.print(self, str, source)
 		precreate_text(self)
 		update_text_pos(self)
 		appear_text(self)
-
 		return true
 	end
 end
@@ -583,9 +557,9 @@ end
 
 function M.update(self, dt)
 	-- Only update node_parent_pos if we're not currently shaking
-    if self.shake_time <= 0 then
-        self.node_parent_pos = gui.get_position(self.node_parent)
-    end
+	if self.shake_time <= 0 then
+		self.node_parent_pos = gui.get_position(self.node_parent)
+	end
 
 	self.parent_size = gui.get_size(self.node_parent)
 
@@ -630,10 +604,6 @@ function M.add_word_style(word, style)
 	word_styles[word] = style
 end
 
-function M.get_current_dialogue_metrics(self)
-	calculate_current_dialogue_metrics(self)
-	return self.dialogue_width, self.dialogue_height
-end
 
 function M.set_dialogue_offset(self, x_offset, y_offset)
 	self.dialogue_x_offset = x_offset
